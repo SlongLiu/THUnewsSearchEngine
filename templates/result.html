@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<title>搜索结果</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap-datetimepicker.min.css' %}"/>
+	</head>
+<body>
+<div class="container" style=":60%">
+			<form class="form" role="form" method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+				<br>
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="text" id="name" placeholder="{{ text }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default " type="submit" >
+                                立即搜索
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+			    </div><!-- /.col-lg-6 -->
+                <!---
+				<br>
+				<input type="text" class="form-control" name="text" id="name" placeholder="请输入搜索内容">
+                <button type="submit" style="width:15%" class="btn btn-default">搜索</button>
+                >
+				<br>
+                <br>
+                <br>
+				<label style="width:2%"></label>
+				<label class="radio-inline" style="width:19%">
+  					<input type="radio" name="select" id="inlineRadio1" value="all" checked="checked">全部
+				</label>
+				<label class="radio-inline" style="width:19%">
+  					<input type="radio" name="select" id="inlineRadio2" value="year">一年内
+				</label>
+				<label class="radio-inline" style="width:19%">
+  					<input type="radio" name="select" id="inlineRadio3" value="month">一月内
+				</label>
+				<label class="radio-inline" style="width:19%">
+  					<input type="radio" name="select" id="inlineRadio4" value="week">一周内
+				</label>
+                <br>
+                -->
+
+                <hr>
+                <br>
+                <div class="form-group inline-group" >
+                    <div class="form-group col-md-6" >
+                    <label for="dtp_input1" class="control-label col-md-2" >开始时间</label>
+                    <label class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" size="10" type="text" value="{{starttime}}" >
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </label>
+                    <input type="hidden" id="dtp_input1" value="" name="starttime"/><br/>
+                    </div>
+
+                    <div class="form-group col-md-6" >
+                    <label for="dtp_input2" class="control-label col-md-2">结束时间</label>
+                    <label class="input-group date form_date col-md-6" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" size="10" type="text" value="{{ endtime }}" name="endtime">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </label>
+                    <input type="hidden" id="dtp_input2" value="" name="endtime"/><br/>
+                    </div>
+
+                </div>
+
+			</form>
+            <hr>
+        <hr>
+
+            <div class="row">
+				<br>
+				<label style="width:2%"></label>
+				<label>共有{{ num }}条结果，当前位于第{{ contacts.number }}页，共有{{ contacts.paginator.num_pages }}页。</label>
+				<br>
+				<br>
+            </div>
+
+            <div>
+				<ul class="table list-unstyled">
+
+					{% for article in contacts %}
+    				<li>
+						<p><a href='{{ article.url }}'>{{ article.title|safe }}</a></p>
+	        			<p>{{ article.content|safe }}</p>
+					</li>
+                        <br>
+					{% endfor %}
+				</ul>
+			</div>
+        <div class="row">
+				<br>
+    			<!span class="step-links">
+					<label style="width:12%"></label>
+					<label style="width:33%">
+        			{% if contacts.has_previous %}
+            			<a href="?page={{ contacts.previous_page_number }}">previous</a>
+	        		{% endif %}
+					</label>
+					<label style="width:33%">
+    	    		<span class="current">
+        	    		Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        			</span>
+					</label>
+					<label style="width:18%">
+	        		{% if contacts.has_next %}
+    	        		<a href="?page={{ contacts.next_page_number }}">next</a>
+        			{% endif %}
+					</label>
+    			<!/span>
+			</div>
+
+		</div>
+
+
+
+
+<script type="text/javascript" src="{% static 'jquery/jquery-1.8.3.min.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'app/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'app/js/locales/bootstrap-datetimepicker.zh-CN.js' %}" charset="UTF-8"></script>
+<script type="text/javascript">
+	$('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+</script>
+
+</body>
+</html>

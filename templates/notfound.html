@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>无搜索结果</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'app/css/style.css' %}"/>
+
+</head>
+<body>
+
+	<div id="container" class="container">
+		<ul id="scene" class="scene">
+			<li class="layer" data-depth="1.00"><img src="{% static 'app/images/noresult.png' %}"></li>
+			<li class="layer" data-depth="0.60"><img src="{% static 'app/images/shadows-01.png' %}"></li>
+			<li class="layer" data-depth="0.20"><img src="{% static 'app/images/monster-01.png' %}"></li>
+			<li class="layer" data-depth="0.40"><img src="{% static 'app/images/email.png' %}"></li>
+			<li class="layer" data-depth="0.10"><img src="{% static 'app/images/monster-eyes-01.png' %}"></li>
+		</ul>
+		<h1>啊哈！你的搜索结果被怪物吃掉啦！</h1>
+		<a href="{% url 'index' %}" class="btn">返回首页</a>
+	</div>
+
+
+
+	<!-- Scripts -->
+	<script src="{% static 'app/js/parallax.js' %}"></script>
+	<script>
+	// Pretty simple huh?
+    // Yeah
+	var scene = document.getElementById('scene');
+	var parallax = new Parallax(scene);
+	</script>
+
+</body>
+</html>

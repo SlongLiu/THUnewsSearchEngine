@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+	<head>
+		<meta charset="utf-8">
+		<title>搜索引擎</title>
+		<link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap-datetimepicker.min.css' %}"/>
+        <script>
+function ifOnClickUI(){
+    var ui =document.getElementById("bbs");
+    if(ui.style.display==""){
+    ui.style.display="none";
+    }
+    else{
+    ui.style.display="";
+    }
+}
+</script>
+        <style>
+            .bg{
+                  background-image: url({% static 'pic/background.jpg' %});//此为图片地址
+                  background-size: 100% 100%;
+                  -moz-background-size: 100% 100%;
+                  -webkit-background-size: 100% 100%;
+                }
+        </style>
+
+	</head>
+	<body class="bg" style="height: 100%">
+		<div class="container " style="height: 100%">
+            <div class="col-lg-12" style="height: 30%"></div>
+			<form class="form" role="form" method="POST" action="{% url 'search' %}" style="height: 70%">
+                {% csrf_token %}
+                <div class="col-lg-12" style="vertical-align:middle">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="text" id="name" placeholder="请输入搜索内容">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="ifOnClickUI()">高级选项</button>
+                            <button class="btn btn-primary " type="submit" >
+                                立即搜索
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+			    </div><!-- /.col-lg-6 -->
+                <!---
+				<br>
+				<input type="text" class="form-control" name="text" id="name" placeholder="请输入搜索内容">
+                <button type="submit" style="width:15%" class="btn btn-default">搜索</button>
+                -->
+				<br>
+                <br>
+                <br>
+
+                <div class="col-lg-12" style="height: 4%"></div>
+                <div class="form-group inline-group" id="bbs" style="display: none">
+                    <div class="form-group col-md-6" >
+                    <!--<label for="dtp_input1" class="control-label col-md-2" >开始时间</label>-->
+                    <label class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" size="10" type="text" value="" readonly placeholder="请选择开始时间" name="starttime">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </label>
+                    <input type="hidden" id="dtp_input1" value=""/><br/>
+                    </div>
+
+                    <div class="form-group col-md-6" >
+                    <!--<label for="dtp_input2" class="control-label col-md-2" >结束时间</label>-->
+                    <label class="input-group date form_date " data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                        <input class="form-control" size="10" type="text" value="" readonly placeholder="请选择结束时间" name="endtime">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </label>
+                    <input type="hidden" id="dtp_input2" value=""/><br/>
+                    </div>
+            </form>
+                </div>
+
+
+            <br>
+            <br>
+		</div>
+
+
+<script type="text/javascript" src="{% static 'jquery/jquery-1.8.3.min.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'app/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'app/js/bootstrap-datetimepicker.js' %}" charset="UTF-8"></script>
+<script type="text/javascript" src="{% static 'app/js/locales/bootstrap-datetimepicker.zh-CN.js' %}" charset="UTF-8"></script>
+<script type="text/javascript">
+	$('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+</script>
+
+	</body>
+</html>
